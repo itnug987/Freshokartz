@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "581585428749",
+    "firebase_url": "https://freshokartz-92a6f.firebaseio.com",
+    "project_id": "freshokartz-92a6f",
+    "storage_bucket": "freshokartz-92a6f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:581585428749:android:b4d1d2dc15e533a4",
+        "android_client_info": {
+          "package_name": "com.freshokartz"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "581585428749-2kfricje20fqpjms911vie460679sg0u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC6WkY0W6CYPOWgqeAcK_3IQd7wB9HJbw8"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
