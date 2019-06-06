@@ -7,7 +7,7 @@
             android:id="@+id/nav_login"
             android:icon="@drawable/ic_contact"
             android:title="Login"
-            app:actionLayout="@layout/menu_counter_plain_" />
+            />
 
         <item
             android:id="@+id/nav_cart"
