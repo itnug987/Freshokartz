@@ -224,4 +224,17 @@
     <string name="NEXT">NEXT</string>
     <string name="SKIP">SKIP</string>
 
+    <string-array name="cities">
+        <item>Jaipur</item>
+        <item>Gurugram</item>
+        <item>Hyderabad</item>
+    </string-array>
+
+    <string-array name="areas">
+        <item>LAL KOTHI</item>
+        <item>SODALA</item>
+        <item>SOHNA ROAD</item>
+        <item>Banjara hills</item>
+    </string-array>
+
 </resources>

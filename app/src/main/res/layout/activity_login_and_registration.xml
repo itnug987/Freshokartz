@@ -42,6 +42,7 @@
             android:id="@+id/email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:inputType="textEmailAddress"
             android:hint="Email" />
     </android.support.design.widget.TextInputLayout>
 
@@ -59,6 +60,7 @@
             android:id="@+id/password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:inputType="textPassword"
             android:hint="Password" />
     </android.support.design.widget.TextInputLayout>
 
@@ -104,7 +106,19 @@
         app:layout_constraintStart_toStartOf="parent"
         tools:background="@color/transparent" />
 
-
+    <ImageButton
+        android:id="@+id/backhome"
+        android:layout_width="40dp"
+        android:layout_height="37dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
+        android:background="@color/transparent"
+        android:scaleType="fitCenter"
+        android:tint="@android:color/white"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="?attr/homeAsUpIndicator" />
 
 
 </android.support.constraint.ConstraintLayout>

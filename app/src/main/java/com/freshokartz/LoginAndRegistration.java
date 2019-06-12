@@ -1,16 +1,20 @@
 package com.freshokartz;
 
 import android.content.Intent;
+import android.support.design.widget.NavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.List;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -18,13 +22,24 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class LoginAndRegistration extends AppCompatActivity {
-    Button register;
-    TextView email, password;
-    Button button_login;
+    private Button register;
+    private EditText email, password;
+    private Button button_login;
+    private ImageButton backhome;
+    private String token;
+    Retrofit.Builder builder = new Retrofit.Builder()
+            .baseUrl(LoginApi.DJANGO_SITE)
+            .addConverterFactory(GsonConverterFactory.create());
+    Retrofit retrofit = builder.build();
+    LoginApi loginApi = retrofit.create(LoginApi.class);
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_and_registration);
+
+        email = findViewById(R.id.email);
+        password =findViewById(R.id.password);
 
         button_login = findViewById(R.id.login);
         button_login.setOnClickListener(new View.OnClickListener() {
@@ -34,7 +49,7 @@ public class LoginAndRegistration extends AppCompatActivity {
             }
         });
 
-        register = (Button) findViewById(R.id.register);
+        register = findViewById(R.id.register);
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -44,51 +59,48 @@ public class LoginAndRegistration extends AppCompatActivity {
         });
 
 
-
+        backhome = findViewById(R.id.backhome);
+        backhome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i =new Intent(LoginAndRegistration.this, ActivityMain.class);
+                startActivity(i);
+            }        });
     }
 
-    private void login(){
 
+    private void login() {
 
-        Retrofit.Builder builder = new Retrofit.Builder()
-                .baseUrl(LoginApi.DJANGO_SITE)
-                .addConverterFactory(GsonConverterFactory.create());
-        Retrofit retrofit = builder.build();
+        Login login = new Login(email.getText().toString() , password.getText().toString());
 
+        Call<Bptoken> call = loginApi.login(login);
 
-        LoginApi loginApi = retrofit.create(LoginApi.class);
-
-        email = findViewById(R.id.email);
-        password = findViewById(R.id.password);
-        String str_username      =  email.getText().toString();
-        String str_password      =  password.getText().toString();
-
-        Login login = new Login(str_username, str_password);
-
-        Call<User> call = loginApi.login(login);
-        call.enqueue(new Callback<User>() {
-
+        call.enqueue(new Callback<Bptoken>() {
             @Override
-            public void onResponse(Call<User> call, Response<User> response) {
-                if(response.isSuccessful()){
-
-
+            public void onResponse(Call<Bptoken> call, Response<Bptoken> response) {
+                Log.i("ghjk", "ghjk");
+                if (response.isSuccessful()) {
+                    Log.i("vvpo", "vvpo");
                     if (response.body() != null) {
 
-                        String token = response.body().getToken();
+                        token = response.body().getToken();
                         Toast.makeText(getApplicationContext(), token, Toast.LENGTH_SHORT).show();
                         showPost(token);
+                        Toast.makeText(LoginAndRegistration.this, "12345", Toast.LENGTH_SHORT).show();
+                        Log.i("sperer", "gyjvhj");
+
+                        Intent i = new Intent(LoginAndRegistration.this, ActivityMain.class);
+                        startActivity(i);
 
                     }
-
-                }else {
-                    Log.d("fail","fail");
+                } else {
+                    Log.d("fail", "fail");
                 }
             }
 
             @Override
-            public void onFailure(Call<User> call, Throwable t) {
-                Log.d("fail","fail");
+            public void onFailure(Call<Bptoken> call, Throwable t) {
+                Toast.makeText(LoginAndRegistration.this, "Failed", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -96,53 +108,31 @@ public class LoginAndRegistration extends AppCompatActivity {
     private void showPost(String token) {
 
 
-        Retrofit.Builder builder = new Retrofit.Builder()
-                .baseUrl(LoginApi.DJANGO_SITE)
-                .addConverterFactory(GsonConverterFactory.create());
-        Retrofit retrofit = builder.build();
-
-
-        LoginApi login= retrofit.create(LoginApi.class);
-
         String Token_request = "Token " + token;
 
-        Call<List<Posts>> call = login.getPost(Token_request);
+        Call<BpResponseBody> call = loginApi.getDetail(Token_request);
 
-        call.enqueue(new Callback<List<Posts>>() {
+        call.enqueue(new Callback<BpResponseBody>() {
             @Override
-            public void onResponse(Call<List<Posts>> call, Response<List<Posts>> response) {
+            public void onResponse(Call<BpResponseBody> call, Response<BpResponseBody> response) {
+                BpResponseBody finalResponseBody = response.body();
 
-                if(response.isSuccessful()){
+                Log.i("tuy", "hghyjv");
+                Toast.makeText(LoginAndRegistration.this, "Success", Toast.LENGTH_SHORT).show();
 
-                    if (response.body() != null) {
 
-                        List<Posts> heroList = response.body();
-
-                        for(Posts h:heroList){
-
-                            String title = h.getTitle();
-                            Toast.makeText(getApplicationContext(), title, Toast.LENGTH_SHORT).show();
-
-                            String text = h.getText();
-                            Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT).show();
-                        }
-
-                    }
-
-                }else {
-                    Log.d("fail", "fail");
-                }
 
             }
 
             @Override
-            public void onFailure(Call<List<Posts>> call, Throwable t) {
-                Log.d("fail","fail");
+            public void onFailure(Call<BpResponseBody> call, Throwable t) {
+                Toast.makeText(LoginAndRegistration.this, "Failure", Toast.LENGTH_SHORT).show();
             }
-
         });
-
     }
+
+
+
 
 }
 
