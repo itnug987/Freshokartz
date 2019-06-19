@@ -1,41 +1,41 @@
 package com.freshokartz;
 
-import android.app.Activity;
-import android.content.Intent;
-import android.graphics.Color;
-import android.os.Bundle;
-import android.os.Handler;
-import android.support.design.widget.AppBarLayout;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.TextView;
+        import android.app.Activity;
+        import android.content.Intent;
+        import android.graphics.Color;
+        import android.os.Bundle;
+        import android.os.Handler;
+        import android.support.design.widget.AppBarLayout;
+        import android.support.v4.widget.SwipeRefreshLayout;
+        import android.support.v7.app.ActionBar;
+        import android.support.v7.app.AppCompatActivity;
+        import android.support.v7.widget.GridLayoutManager;
+        import android.support.v7.widget.RecyclerView;
+        import android.support.v7.widget.Toolbar;
+        import android.view.Menu;
+        import android.view.MenuItem;
+        import android.view.View;
+        import android.widget.Button;
+        import android.widget.ImageView;
+        import android.widget.TextView;
 
-import com.freshokartz.adapter.AdapterProduct;
-import com.freshokartz.connection.API;
-import com.freshokartz.connection.RestAdapter;
-import com.freshokartz.connection.callbacks.CallbackProduct;
-import com.freshokartz.data.AppConfig;
-import com.freshokartz.data.Constant;
-import com.freshokartz.model.Category;
-import com.freshokartz.model.Product;
-import com.freshokartz.utils.NetworkCheck;
-import com.freshokartz.utils.Tools;
+        import com.freshokartz.adapter.AdapterProduct;
+        import com.freshokartz.connection.API;
+        import com.freshokartz.connection.RestAdapter;
+        import com.freshokartz.connection.callbacks.CallbackProduct;
+        import com.freshokartz.data.AppConfig;
+        import com.freshokartz.data.Constant;
+        import com.freshokartz.model.Category;
+        import com.freshokartz.model.Product;
+        import com.freshokartz.utils.NetworkCheck;
+        import com.freshokartz.utils.Tools;
 
-import java.util.ArrayList;
-import java.util.List;
+        import java.util.ArrayList;
+        import java.util.List;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+        import retrofit2.Call;
+        import retrofit2.Callback;
+        import retrofit2.Response;
 
 public class ActivityCategoryDetails extends AppCompatActivity {
     private static final String EXTRA_OBJECT = "key.EXTRA_OBJECT";
@@ -73,7 +73,7 @@ public class ActivityCategoryDetails extends AppCompatActivity {
 
         displayCategoryData(category);
 
-        requestAction(1);
+        //requestAction(1);
     }
 
     private void initComponent() {
@@ -100,7 +100,7 @@ public class ActivityCategoryDetails extends AppCompatActivity {
             public void onLoadMore(int current_page) {
                 if (post_total > mAdapter.getItemCount() && current_page != 0) {
                     int next_page = current_page + 1;
-                    requestAction(next_page);
+                    //requestAction(next_page);
                 } else {
                     mAdapter.setLoaded();
                 }
@@ -113,7 +113,7 @@ public class ActivityCategoryDetails extends AppCompatActivity {
             public void onRefresh() {
                 if (callbackCall != null && callbackCall.isExecuted()) callbackCall.cancel();
                 mAdapter.resetListData();
-                requestAction(1);
+                // requestAction(1);
             }
         });
     }
@@ -210,21 +210,21 @@ public class ActivityCategoryDetails extends AppCompatActivity {
         }
     }
 
-    private void requestAction(final int page_no) {
-        showFailedView(false, "");
-        showNoItemView(false);
-        if (page_no == 1) {
-            swipeProgress(true);
-        } else {
-            mAdapter.setLoading();
-        }
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                requestListProduct(page_no);
-            }
-        }, 1000);
-    }
+//    private void requestAction(final int page_no) {
+//        showFailedView(false, "");
+//        showNoItemView(false);
+//        if (page_no == 1) {
+//            swipeProgress(true);
+//        } else {
+//            mAdapter.setLoading();
+//        }
+//        new Handler().postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//                requestListProduct(page_no);
+//            }
+//        }, 1000);
+//    }
 
     @Override
     public void onDestroy() {
@@ -248,7 +248,7 @@ public class ActivityCategoryDetails extends AppCompatActivity {
         ((Button) findViewById(R.id.failed_retry)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                requestAction(failed_page);
+                //requestAction(failed_page);
             }
         });
     }

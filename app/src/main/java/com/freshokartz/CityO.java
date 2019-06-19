@@ -3,8 +3,7 @@ package com.freshokartz;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class City {
-
+public class CityO {
     @SerializedName("id")
     @Expose
     private Integer id;
@@ -14,12 +13,6 @@ public class City {
     @SerializedName("state")
     @Expose
     private Integer state;
-
-    public City(Integer id, String district, Integer state) {
-        this.id = id;
-        this.district = district;
-        this.state = state;
-    }
 
     public Integer getId() {
         return id;

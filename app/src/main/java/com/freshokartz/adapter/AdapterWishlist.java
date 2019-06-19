@@ -19,7 +19,6 @@ import com.freshokartz.utils.Tools;
 import java.util.ArrayList;
 import java.util.List;
 
-
 public class AdapterWishlist extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private final int VIEW_ITEM = 1;
@@ -63,7 +62,6 @@ public class AdapterWishlist extends RecyclerView.Adapter<RecyclerView.ViewHolde
             lyt_parent = (LinearLayout) v.findViewById(R.id.lyt_parent);
         }
     }
-
 
     public static class ProgressViewHolder extends RecyclerView.ViewHolder {
         public ProgressBar progressBar;
@@ -174,9 +172,7 @@ public class AdapterWishlist extends RecyclerView.Adapter<RecyclerView.ViewHolde
             });
         }
     }
-
     public interface OnLoadMoreListener {
         void onLoadMore(int current_page);
     }
-
 }

@@ -34,10 +34,10 @@ public class BpResponseBody {
     private Object GSTIN;
     @SerializedName("area")
     @Expose
-    private Area area;
+    private AreaO area;
     @SerializedName("city")
     @Expose
-    private City city;
+    private CityO city;
     @SerializedName("gender")
     @Expose
     private String gender;
@@ -120,19 +120,19 @@ public class BpResponseBody {
         this.GSTIN = GSTIN;
     }
 
-    public Area getArea() {
+    public AreaO getArea() {
         return area;
     }
 
-    public void setArea(Area area) {
+    public void setArea(AreaO area) {
         this.area = area;
     }
 
-    public City getCity() {
+    public CityO getCity() {
         return city;
     }
 
-    public void setCity(City city) {
+    public void setCity(CityO city) {
         this.city = city;
     }
 

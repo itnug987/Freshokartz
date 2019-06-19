@@ -26,7 +26,7 @@ public interface API {
     String AGENT = "User-Agent: FreshoKartz";
     String SECURITY = "Security: " + Constant.SECURITY_CODE;
 
-    /* Recipe API transaction ------------------------------- */
+    /* Recipe API transaction ----------------------------------------- */
 
     @Headers({CACHE, AGENT})
     @GET("services/info")
@@ -62,12 +62,14 @@ public interface API {
     );
 
     /* Category API ---------------------------------------------------  */
+
     @Headers({CACHE, AGENT})
     @GET("services/listCategory")
     Call<CallbackCategory> getListCategory();
 
 
     /* Product API ---------------------------------------------------- */
+
 
     @Headers({CACHE, AGENT})
     @GET("services/listProduct")

@@ -1,9 +1,9 @@
-package com.freshokartz;
+package com.freshokartz.Area;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Area {
+public class Result {
 
     @SerializedName("id")
     @Expose
@@ -14,12 +14,6 @@ public class Area {
     @SerializedName("city")
     @Expose
     private Integer city;
-
-    public Area(Integer id, String area, Integer city) {
-        this.id = id;
-        this.area = area;
-        this.city = city;
-    }
 
     public Integer getId() {
         return id;
@@ -45,4 +39,12 @@ public class Area {
         this.city = city;
     }
 
+    @Override
+    public String toString() {
+        return "Result{" +
+                "id=" + id +
+                ", area='" + area + '\'' +
+                ", city=" + city +
+                '}';
+    }
 }

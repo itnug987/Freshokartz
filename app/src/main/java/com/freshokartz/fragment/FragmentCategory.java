@@ -6,16 +6,22 @@ import android.support.annotation.StringRes;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.freshokartz.ActivityCategoryDetails;
 import com.freshokartz.ActivityMain;
+import com.freshokartz.CatApi;
+import com.freshokartz.Category.PostList;
+import com.freshokartz.Category.Result;
 import com.freshokartz.R;
 import com.freshokartz.adapter.AdapterCategory;
+import com.freshokartz.adapter.CatAdapter;
 import com.freshokartz.connection.API;
 import com.freshokartz.connection.RestAdapter;
 import com.freshokartz.connection.callbacks.CallbackCategory;
@@ -23,6 +29,7 @@ import com.freshokartz.model.Category;
 import com.freshokartz.utils.NetworkCheck;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -39,21 +46,24 @@ public class FragmentCategory extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         root_view = inflater.inflate(R.layout.fragment_category, null);
-        initComponent();
-        requestListCategory();
+       // initComponent();
+        recyclerView = root_view.findViewById(R.id.recyclerView);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
+        //requestListCategory();
+        getCatData();
         return root_view;
     }
 
     private void initComponent() {
         recyclerView = (RecyclerView) root_view.findViewById(R.id.recyclerView);
-        recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 1));
-
+       // recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 1));
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         //set data and list adapter
         adapter = new AdapterCategory(getActivity(), new ArrayList<Category>());
         recyclerView.setAdapter(adapter);
-        recyclerView.setNestedScrollingEnabled(false);
-        recyclerView.setVisibility(View.GONE);
+//        recyclerView.setNestedScrollingEnabled(false);
+//        recyclerView.setVisibility(View.GONE);
 
         adapter.setOnItemClickListener(new AdapterCategory.OnItemClickListener() {
             @Override
@@ -101,6 +111,29 @@ public class FragmentCategory extends Fragment {
 
     private void showFailedView(@StringRes int message) {
         ActivityMain.getInstance().showDialogFailed(message);
+    }
+
+    private void getCatData(){
+        Call<PostList> result = CatApi.getService().getPostList();
+        result.enqueue(new Callback<PostList>() {
+            @Override
+            public void onResponse(Call<PostList> call, Response<PostList> response) {
+                PostList ujju = response.body();
+                List<Result> main = ujju.getResults();
+                Log.i("retr",ujju.toString());
+                Log.i("retr","sd");
+                for (int i=0;i<main.size();i++){
+                    Log.i("humble",main.get(i).getName().toString());
+                }
+                recyclerView.setAdapter(new CatAdapter(getContext(),ujju.getResults()));
+                Toast.makeText(getActivity(), "SUCCESS", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailure(Call<PostList> call, Throwable t) {
+                Toast.makeText(getActivity(), "FAILED", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
 }

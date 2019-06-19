@@ -20,7 +20,6 @@ public class ProductOrder implements Serializable {
 
     public ProductOrder() {
     }
-
     public ProductOrder(BuyerProfile buyerProfile, String shipping, Long date_ship, String comment) {
         this.buyer = buyerProfile.name;
         this.address = buyerProfile.address;
