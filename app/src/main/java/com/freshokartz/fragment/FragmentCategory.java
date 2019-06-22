@@ -126,7 +126,7 @@ public class FragmentCategory extends Fragment {
                     Log.i("humble",main.get(i).getName().toString());
                 }
                 recyclerView.setAdapter(new CatAdapter(getContext(),ujju.getResults()));
-                Toast.makeText(getActivity(), "SUCCESS", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getActivity(), "SUCCESS", Toast.LENGTH_SHORT).show();
             }
 
             @Override

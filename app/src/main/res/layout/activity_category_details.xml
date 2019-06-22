@@ -71,7 +71,10 @@
         </LinearLayout>
 
     </android.support.design.widget.AppBarLayout>
-
+<TextView
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    android:background="#0B9344"/>
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/swipe_refresh_layout"
         android:layout_width="match_parent"

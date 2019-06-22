@@ -23,7 +23,6 @@ import com.freshokartz.data.SharedPref;
 import com.freshokartz.model.Notification;
 import com.freshokartz.utils.CallbackImageNotif;
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
@@ -142,20 +141,20 @@ public class FcmMessagingService extends FirebaseMessagingService {
         myRunnable = new Runnable() {
             @Override
             public void run() {
-                Glide.with(ctx).load(url).asBitmap().into(new SimpleTarget<Bitmap>() {
-                    @Override
-                    public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
-                        callback.onSuccess(resource);
-                        mainHandler.removeCallbacks(myRunnable);
-                    }
-
-                    @Override
-                    public void onLoadFailed(Exception e, Drawable errorDrawable) {
-                        callback.onFailed(e.getMessage());
-                        super.onLoadFailed(e, errorDrawable);
-                        mainHandler.removeCallbacks(myRunnable);
-                    }
-                });
+//                Glide.with(ctx).load(url).asBitmap().into(new SimpleTarget<Bitmap>() {
+//                    @Override
+//                    public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
+//                        callback.onSuccess(resource);
+//                        mainHandler.removeCallbacks(myRunnable);
+//                    }
+//
+//                    @Override
+//                    public void onLoadFailed(Exception e, Drawable errorDrawable) {
+//                        callback.onFailed(e.getMessage());
+//                        super.onLoadFailed(e, errorDrawable);
+//                        mainHandler.removeCallbacks(myRunnable);
+//                    }
+//                });
             }
         };
         mainHandler.post(myRunnable);

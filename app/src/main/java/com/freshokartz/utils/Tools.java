@@ -150,7 +150,7 @@ public class Tools {
     public static void displayImageOriginal(Context ctx, ImageView img, String url) {
         try {
             Glide.with(ctx).load(url)
-                    .crossFade()
+                    //.crossFade()
                     .diskCacheStrategy(DiskCacheStrategy.NONE)
                     .into(img);
         } catch (Exception e) {
@@ -160,7 +160,7 @@ public class Tools {
     public static void displayImageThumbnail(Context ctx, ImageView img, String url, float thumb) {
         try {
             Glide.with(ctx).load(url)
-                    .crossFade()
+                    //.crossFade()
                     .diskCacheStrategy(DiskCacheStrategy.NONE)
                     .thumbnail(thumb)
                     .into(img);

@@ -3,12 +3,14 @@ package com.freshokartz;
 import com.freshokartz.Area.AreaList;
 import com.freshokartz.Category.PostList;
 import com.freshokartz.City.CityList;
+import com.freshokartz.Product.ProductList;
 
 
 import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.GET;
+import retrofit2.http.Path;
 
 public class CatApi {
 
@@ -38,6 +40,9 @@ Call<PostList> getPostList();
 //        @GET("products/")
 //        Call<ProductList> getProductList();
 
+
+        @GET("/api/v1/products/product_by_category_id/{id}/")
+        Call<ProductList> getProductsByCateGory(@Path("id") int id);
         @GET("city/")
         Call<CityList> getCity();
 
