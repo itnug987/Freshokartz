@@ -1,8 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <array name="preloaded_fonts" translatable="false">
+        <item>@font/abeezee</item>
         <item>@font/abhaya_libre</item>
 
+        <item>@font/alfa_slab_one</item>
+        <item>@font/almendra_sc</item>
         <item>@font/armata</item>
+        <item>@font/atomic_age</item>
+        <item>@font/baloo_da</item>
+        <item>@font/coda</item>
+        <item>@font/concert_one</item>
+        <item>@font/fauna_one</item>
+        <item>@font/gfs_didot</item>
+        <item>@font/heebo_bold</item>
+        <item>@font/nosifer</item>
+        <item>@font/oldenburg</item>
+        <item>@font/roboto_thin</item>
+        <item>@font/unlock</item>
     </array>
 </resources>
