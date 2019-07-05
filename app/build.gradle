@@ -61,7 +61,7 @@ dependencies {
     // firebase ads library
     implementation 'com.google.firebase:firebase-ads:17.1.3'
     implementation 'com.github.aakira:expandable-layout:1.6.0@aar'
-
+    implementation 'com.intuit.sdp:sdp-android:1.0.5'
 }
 
 apply plugin: 'com.google.gms.google-services'

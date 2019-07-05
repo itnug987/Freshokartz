@@ -18,8 +18,8 @@ public class CatApi {
 
     public static PostService postService = null;
 
-    public static PostService getService(){
-        if (postService==null){
+    public static PostService getService() {
+        if (postService == null) {
             Retrofit retrofit = new Retrofit.Builder()
                     .baseUrl(url).addConverterFactory(GsonConverterFactory.create())
                     .build();
@@ -28,21 +28,25 @@ public class CatApi {
         return postService;
     }
 
-    public interface PostService{
-//        @GET("categorytrees/")
+    public interface PostService {
+        //        @GET("categorytrees/")
 //        Call<PostList> getPostList();
 //
 //        @GET("products/")
 //        Call<ProductList> getProductList();
-@GET("categorytrees/")
-Call<PostList> getPostList();
+        @GET("categorytrees/")
+        Call<PostList> getPostList();
 
 //        @GET("products/")
 //        Call<ProductList> getProductList();
 
+        @GET("products/{id}/")
+        Call<ProductList> getProductsDescription(@Path("id") String id);
+
 
         @GET("/api/v1/products/product_by_category_id/{id}/")
         Call<ProductList> getProductsByCateGory(@Path("id") int id);
+
         @GET("city/")
         Call<CityList> getCity();
 

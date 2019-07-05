@@ -1,9 +1,11 @@
 package com.freshokartz;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,20 +44,27 @@ public class ProAdapter extends RecyclerView.Adapter<ProAdapter.ProAdapterViewHo
 
     @Override
     public void onBindViewHolder(@NonNull ProAdapterViewHolder proAdapterViewHolder, final int i) {
-        Result result = items.get(i);
+         Result result = items.get(i);
         proAdapterViewHolder.textView.setText(result.getProductName());
+        proAdapterViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.i("incre","sdssd");
+                String skId = items.get(i).getSku();
+                Intent gintent = new Intent(context, ProductsPrime.class);
+                gintent.putExtra("skId",skId);
+                context.startActivity(gintent);
+            }
+        });
         proAdapterViewHolder.price.setText(String.valueOf("Rs. " + result.getPrice()));
         String url = "http://13.127.236.125/" + (String) result.getProductImage();
         Glide.with(context)
                 .load(url)
-                .apply(new RequestOptions().override(140, 140))
+                //.apply(new RequestOptions().override(140, 140))
                 .into(proAdapterViewHolder.imageView);
-        proAdapterViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        Log.i("pred","csdfsf");
 
-            }
-        });
+
     }
 
     @Override

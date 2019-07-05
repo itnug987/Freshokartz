@@ -230,6 +230,11 @@
         <item>Hyderabad</item>
     </string-array>
 
+    <string-array name="spinnerKg">
+        <item>Kg</item>
+        <item>g</item>
+    </string-array>
+
     <string-array name="areas">
         <item>LAL KOTHI</item>
         <item>SODALA</item>

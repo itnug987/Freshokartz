@@ -18,7 +18,8 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ProductsPrime"></activity>
+        <activity android:name=".ProductsPrime"
+            ></activity>
         <activity android:name=".ProductsShow" /> <!-- List Of Activity Class -->
         <activity android:name=".ActivitySplash">
             <intent-filter>
