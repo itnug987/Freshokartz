@@ -72,16 +72,17 @@
 
         <EditText
             android:id="@+id/incre"
-            android:layout_width="35dp"
+            android:layout_width="42dp"
+            android:gravity="center"
+            android:maxLength="4"
             android:layout_height="wrap_content"
             android:layout_below="@id/kid"
-            android:gravity="center"
-            android:layout_marginLeft="273.5dp"
+            android:layout_marginLeft="270.29dp"
             android:layout_marginTop="-10dp"
             android:inputType="numberDecimal"
-            android:text="1"
+            android:text="0.00"
             android:textColor="@android:color/black"
-            android:textSize="20dp" />
+            android:textSize="17.8dp" />
         <ImageView
             android:layout_width="29dp"
             android:layout_height="27.2dp"
@@ -89,7 +90,7 @@
 android:id="@+id/plus"
             android:layout_marginTop="7dp"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="309.8dp"
+            android:layout_marginLeft="310.8dp"
 android:alpha="0.8"
             android:src="@drawable/pop"/>
 
@@ -147,6 +148,15 @@ android:alpha="0.8"
             android:translationX="-22dp"
             android:layout_marginLeft="255dp"
             android:layout_below="@id/plus"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:gravity="center"
+            android:layout_marginLeft="246dp"
+
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/spin"
             />
 
 
