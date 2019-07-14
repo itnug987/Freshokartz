@@ -3,13 +3,17 @@ package com.freshokartz;
 import com.freshokartz.Area.AreaList;
 import com.freshokartz.Category.PostList;
 import com.freshokartz.City.CityList;
+import com.freshokartz.Product.OrderInfo;
 import com.freshokartz.Product.ProductList;
 
 
 import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.Header;
+import retrofit2.http.POST;
 import retrofit2.http.Path;
 
 public class CatApi {
@@ -52,5 +56,10 @@ public class CatApi {
 
         @GET("area/")
         Call<AreaList> getArea();
+
+        @POST("bp/sales_order/")
+        Call<OrderInfo> placeOrder(@Header("Authorization") String djangoToken
+                                 ,@Body OrderInfo orderInfo);
+
     }
 }

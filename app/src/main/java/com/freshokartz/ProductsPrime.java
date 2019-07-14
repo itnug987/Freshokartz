@@ -1,6 +1,7 @@
 package com.freshokartz;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -20,6 +21,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.freshokartz.Product.OrderInfo;
 import com.freshokartz.Product.ProductList;
 import com.freshokartz.Product.Result;
 import com.github.aakira.expandablelayout.ExpandableRelativeLayout;
@@ -37,7 +39,7 @@ import retrofit2.Response;
 
 public class ProductsPrime extends AppCompatActivity {
     TextView product_name, test;
-    Button check, addtoCart;
+    Button check, addtoCart, buynow;
     EditText incre;
     boolean invalidQuantity=false;
     boolean checkOfUnknown;
@@ -92,8 +94,7 @@ public class ProductsPrime extends AppCompatActivity {
         getSupportActionBar().setTitle("Product Details");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         addtoCart = findViewById(R.id.addtocat);
-        test = findViewById(R.id.test);
-
+        buynow = findViewById(R.id.buynow);
         cross = findViewById(R.id.cross);
         checks = findViewById(R.id.checks);
         incre = findViewById(R.id.incre);
@@ -234,8 +235,16 @@ public class ProductsPrime extends AppCompatActivity {
 
                     @Override
                     public void onClick(View v) {
-                        trt = Integer.valueOf(incre.getText().toString());
-                        test.setText(String.valueOf(trt * main.get(0).getPrice()));
+
+                        if (addtoCart.getText().equals("Add to Cart")) {
+                            addtoCart.setBackgroundDrawable(getResources().getDrawable(R.drawable.gradient));
+                            addtoCart.setText("Added to Cart");
+                        }
+                        else if(addtoCart.getText().equals("Added to Cart")){
+                            addtoCart.setBackgroundColor(Color.parseColor("#30978E"));
+                            addtoCart.setText("Add to Cart");
+
+                        }
                     }
                 });
 
@@ -287,6 +296,14 @@ public class ProductsPrime extends AppCompatActivity {
                         .load(url)
                         //.apply(new RequestOptions().override(140, 140))
                         .into(pic);
+
+                buynow.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent gintent = new Intent(getApplicationContext(), Buynow_order.class);
+                        gintent.putExtra("skId",main.get(0).getSku());
+                        getApplicationContext().startActivity(gintent);                    }
+                });
             }
 
             @Override
@@ -294,6 +311,13 @@ public class ProductsPrime extends AppCompatActivity {
 
             }
         });
+
+        // @@@@@@   On buynow button clicked   @@@@@@
+
+
+
+
+
     }
 
     @Override

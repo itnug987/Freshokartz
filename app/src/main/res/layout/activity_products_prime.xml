@@ -70,13 +70,7 @@
             <!--android:padding="40dp"-->
             <!--android:textSize="35dp" />-->
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_marginTop="40dp"
-            android:id="@+id/test"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/product_image"
-            android:layout_centerVertical="true"/>
+
         <LinearLayout
             android:id="@+id/floq"
             android:layout_width="390dp"
@@ -247,7 +241,7 @@
                 android:layout_gravity="bottom"
                 android:layout_weight="1"
                 android:background="#7BBB27"
-
+                android:id="@+id/buynow"
                 android:fontFamily="@font/gfs_didot"
                 android:text="Buy Now"
                 android:textColor="#FFF"
