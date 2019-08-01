@@ -119,13 +119,13 @@ public class FragmentCategory extends Fragment {
             @Override
             public void onResponse(Call<PostList> call, Response<PostList> response) {
                 PostList ujju = response.body();
-                List<Result> main = ujju.getResults();
+                List<Result> main = ujju.getResults().subList(4,6);
                 Log.i("retr",ujju.toString());
                 Log.i("retr","sd");
                 for (int i=0;i<main.size();i++){
                     Log.i("humble",main.get(i).getName().toString());
                 }
-                recyclerView.setAdapter(new CatAdapter(getContext(),ujju.getResults()));
+                recyclerView.setAdapter(new CatAdapter(getContext(),ujju.getResults().subList(1,6)));
 //                Toast.makeText(getActivity(), "SUCCESS", Toast.LENGTH_SHORT).show();
             }
 

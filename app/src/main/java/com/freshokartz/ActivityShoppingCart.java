@@ -77,7 +77,7 @@ public class ActivityShoppingCart extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        int item_id = item.getItemId();
+            int item_id = item.getItemId();
         if (item_id == android.R.id.home) {
             super.onBackPressed();
         } else if (item_id == R.id.action_checkout) {

@@ -18,7 +18,7 @@ import retrofit2.http.Path;
 
 public class CatApi {
 
-    private static final String url = "http://13.127.236.125/api/v1/";
+    private static final String url = "http://10.0.2.2:8000/api/v1/";
 
     public static PostService postService = null;
 
@@ -49,7 +49,11 @@ public class CatApi {
 
 
         @GET("/api/v1/products/product_by_category_id/{id}/")
-        Call<ProductList> getProductsByCateGory(@Path("id") int id);
+        Call<ProductList> getProductsByCateGory_Guest(@Path("id") int id);
+
+        @GET("/api/v1/products/product_by_category_id/{id}/")
+        Call<ProductList> getProductsByCateGory_Registered(@Path("id") int id, @Header("Authorization") String djangoToken);
+
 
         @GET("city/")
         Call<CityList> getCity();

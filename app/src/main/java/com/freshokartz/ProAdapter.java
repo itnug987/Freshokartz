@@ -59,7 +59,7 @@ public class ProAdapter extends RecyclerView.Adapter<ProAdapter.ProAdapterViewHo
             }
         });
         proAdapterViewHolder.price.setText(String.valueOf("Rs. " + result.getPrice()));
-        String url = "http://13.127.236.125/" + (String) result.getProductImage();
+        String url = "http://10.0.2.2:8000" + (String) result.getProductImage();
         Glide.with(context)
                 .load(url)
                 //.apply(new RequestOptions().override(140, 140))

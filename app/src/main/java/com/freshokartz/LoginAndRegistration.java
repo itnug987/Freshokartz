@@ -17,24 +17,31 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class LoginAndRegistration extends AppCompatActivity {
+
     private Button register;
     private EditText email, password;
     private Button button_login;
     private ImageButton backhome;
     private String token;
+
     Retrofit.Builder builder = new Retrofit.Builder()
             .baseUrl(LoginApi.DJANGO_SITE)
             .addConverterFactory(GsonConverterFactory.create());
     Retrofit retrofit = builder.build();
     LoginApi loginApi = retrofit.create(LoginApi.class);
 
+    SessionManagement session;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_and_registration);
 
         email = findViewById(R.id.email);
         password =findViewById(R.id.password);
+
+        session = new SessionManagement(getApplicationContext());
 
         button_login = findViewById(R.id.login);
         button_login.setOnClickListener(new View.OnClickListener() {
@@ -53,16 +60,15 @@ public class LoginAndRegistration extends AppCompatActivity {
             }
         });
 
-
         backhome = findViewById(R.id.backhome);
         backhome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i =new Intent(LoginAndRegistration.this, ActivityMain.class);
                 startActivity(i);
-            }        });
+            }
+        });
     }
-
 
     private void login() {
 
@@ -84,6 +90,7 @@ public class LoginAndRegistration extends AppCompatActivity {
                         Toast.makeText(LoginAndRegistration.this, "12345", Toast.LENGTH_SHORT).show();
                         Log.i("sperer", "gyjvhj");
 
+                        session.createLoginSession(token);
                         Intent i = new Intent(LoginAndRegistration.this, ActivityMain.class);
                         startActivity(i);
 
@@ -102,7 +109,6 @@ public class LoginAndRegistration extends AppCompatActivity {
 
     private void showPost(String token) {
 
-
         String Token_request = "Token " + token;
 
         Call<BpResponseBody> call = loginApi.getDetail(Token_request);
@@ -115,8 +121,6 @@ public class LoginAndRegistration extends AppCompatActivity {
                 Log.i("tuy", "hghyjv");
                 Toast.makeText(LoginAndRegistration.this, "Success", Toast.LENGTH_SHORT).show();
 
-
-
             }
 
             @Override
@@ -125,9 +129,6 @@ public class LoginAndRegistration extends AppCompatActivity {
             }
         });
     }
-
-
-
 
 }
 

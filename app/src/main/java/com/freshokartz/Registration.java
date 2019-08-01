@@ -18,6 +18,7 @@ import com.freshokartz.City.CityList;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -39,17 +40,19 @@ public class Registration extends AppCompatActivity {
     Integer cityUser;
     private Button register_btn;
 
+
     //hashmap contains all CITIES with unique Id
-    HashMap<String, Integer> cityList;
+    HashMap<String, Integer> city_List;
 
     //hashmap contains all AREAS with unique Id
-    HashMap<String, Integer> areaList;
+    HashMap<String, Integer> area_List;
 
     Retrofit.Builder builder = new Retrofit.Builder()
             .baseUrl(RegisterApi.DJANGO_SITE)
             .addConverterFactory(GsonConverterFactory.create());
     Retrofit retrofit = builder.build();
     RegisterApi registerApi = retrofit.create(RegisterApi.class);
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -123,6 +126,32 @@ public class Registration extends AppCompatActivity {
 //            }
 //        });
 
+        spinnerArea.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String text = parent.getItemAtPosition(position).toString();
+                areaUser = area_List.get(text);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        spinnerCity.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String text = parent.getItemAtPosition(position).toString();
+                cityUser = city_List.get(text);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
         relogin = findViewById(R.id.relogin);
         relogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -145,6 +174,7 @@ public class Registration extends AppCompatActivity {
     }
 
     private void register(){
+
         RegisterDetail reg = new RegisterDetail(first_name.getText().toString(), middle_name.getText().toString(), last_name.getText().toString(), organization_name.getText().toString(), email.getText().toString(), password.getText().toString(), mobile_number.getText().toString(), areaUser, cityUser);
 
         Call<RegisterDetail> call = registerApi.register(reg);
@@ -156,9 +186,13 @@ public class Registration extends AppCompatActivity {
 
                     if (response.body() != null) {
 
+
+
                         Toast.makeText(Registration.this, "Registration success", Toast.LENGTH_SHORT).show();
                         Intent i = new Intent(Registration.this, ActivityMain.class);
                         startActivity(i);
+
+
 
                     }
                 } else {
@@ -174,6 +208,7 @@ public class Registration extends AppCompatActivity {
     }
 
 
+
     private void getAreaDe(){
         areasL = new ArrayList<>();
         arrayAdapterArea = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_dropdown_item,areasL);
@@ -183,8 +218,10 @@ public class Registration extends AppCompatActivity {
             @Override
             public void onResponse(Call<AreaList> call, Response<AreaList> response) {
                 AreaList areaList = response.body();
+                area_List = new HashMap<>();
                 for (int i=0; i<areaList.getResults().size();i++) {
                     areasL.add(areaList.getResults().get(i).getArea());
+                    area_List.put(areaList.getResults().get(i).getArea(), areaList.getResults().get(i).getId());
                     Log.i("killer", areasL.get(i).toString());
                     arrayAdapterArea.notifyDataSetChanged();
                 }
@@ -207,8 +244,10 @@ public class Registration extends AppCompatActivity {
             @Override
             public void onResponse(Call<CityList> call, Response<CityList> response) {
                 CityList cityList = response.body();
+                city_List = new HashMap<>();
                 for (int i=0; i<cityList.getResults().size();i++) {
                     citiesL.add(cityList.getResults().get(i).getDistrict());
+                    city_List.put(cityList.getResults().get(i).getDistrict(), cityList.getResults().get(i).getId());
                     Log.i("tusha",cityList.getResults().get(i).toString());
                     arrayAdapterCity.notifyDataSetChanged();
                 }

@@ -24,16 +24,23 @@ import com.bumptech.glide.Glide;
 import com.freshokartz.Product.OrderInfo;
 import com.freshokartz.Product.ProductList;
 import com.freshokartz.Product.Result;
+import com.freshokartz.model.Cart;
 import com.github.aakira.expandablelayout.ExpandableRelativeLayout;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 //Class for products individual description
 
@@ -49,9 +56,18 @@ public class ProductsPrime extends AppCompatActivity {
     String value = "";
     double finalValue;
 
+    SessionManagement session;
+
     ImageView plus, minus, cross;
 
     ExpandableRelativeLayout expa;
+
+    Retrofit.Builder builder = new Retrofit.Builder()
+            .baseUrl(CartApi.DJANGO_SITE)
+            .addConverterFactory(GsonConverterFactory.create());
+    Retrofit retrofit = builder.build();
+    CartApi cartApi = retrofit.create(CartApi.class);
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,29 +83,6 @@ public class ProductsPrime extends AppCompatActivity {
                 "g"
         };
 
-//        ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(
-//                this,R.layout.spinner_item,grams
-//        );
-//        spinnerArrayAdapter.setDropDownViewResource(R.layout.spinner_item);
-//        pickup.setAdapter(spinnerArrayAdapter);
-//
-//        pickup.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-//            @Override
-//            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-//                if (pickup.getSelectedItem()=="g"){
-//                    value="gram";
-//                }if (pickup.getSelectedItem()=="Kg"){
-//                    value="kilogram";
-//                }
-//
-//            }
-
-//            @Override
-//            public void onNothingSelected(AdapterView<?> parent) {
-//
-//            }
-//        });
-
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Product Details");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -98,20 +91,6 @@ public class ProductsPrime extends AppCompatActivity {
         cross = findViewById(R.id.cross);
         checks = findViewById(R.id.checks);
         incre = findViewById(R.id.incre);
-//        String gr = incre.getText().toString();
-//        if (gr.matches("")) {
-//            Toast.makeText(this, "You did not enter a username", Toast.LENGTH_SHORT).show();
-//            return;
-//        }
-//        incre.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onFocusChange(View v, boolean hasFocus) {
-//                if (Double.parseDouble(incre.getText().toString())>10){
-//                    incre.setError("Quantity can be atmost 10");
-//                }
-//            }
-//        });
-        //incre.addTextChangedListener(new Textc);
 
         plus = findViewById(R.id.plus);
         minus = findViewById(R.id.minus);
@@ -165,7 +144,7 @@ public class ProductsPrime extends AppCompatActivity {
         result.enqueue(new Callback<ProductList>() {
             @Override
             public void onResponse(Call<ProductList> call, Response<ProductList> response) {
-                ProductList productList = response.body();
+                final ProductList productList = response.body();
                 final List<Result> main = productList.getResults();
                 TextView prod;
                 final TextView price, descript;
@@ -200,8 +179,9 @@ public class ProductsPrime extends AppCompatActivity {
                         cross.setImageResource(R.drawable.ic_action_rigth);
                         try {
                             double gtr = Double.parseDouble(s.toString());
-                            if (gtr > Double.valueOf(main.get(0).getMaximumSaleQuantity()) / 1000) {
-                                s.replace(0, s.length(), "10");
+                            if (gtr > Double.valueOf(main.get(0).getMaximumSaleQuantity())) {
+                                s.replace(0, s.length(), "0");
+                                Toast.makeText(getApplicationContext(), "Maximum sale quantity exceeded", Toast.LENGTH_SHORT).show();
                             }
                         } catch (NumberFormatException e) {
                         }
@@ -231,12 +211,13 @@ public class ProductsPrime extends AppCompatActivity {
                 });
 
                 addtoCart.setOnClickListener(new View.OnClickListener() {
-                    int trt;
-
                     @Override
                     public void onClick(View v) {
 
                         if (addtoCart.getText().equals("Add to Cart")) {
+                            double gtr = Double.parseDouble(incre.getText().toString());
+                            addToCart(productList.getResults().get(0).getSku(), gtr);
+
                             addtoCart.setBackgroundDrawable(getResources().getDrawable(R.drawable.gradient));
                             addtoCart.setText("Added to Cart");
                         }
@@ -291,7 +272,7 @@ public class ProductsPrime extends AppCompatActivity {
 //                updateUI();
 //                price.setText(main.get(0).getPrice().toString());
 //                descript.setText(main.get(0).getDescription());
-                String url = "http://13.127.236.125/" + (String) main.get(0).getProductImage();
+                String url = "http://10.0.2.2:8000" + (String) main.get(0).getProductImage();
                 Glide.with(getApplicationContext())
                         .load(url)
                         //.apply(new RequestOptions().override(140, 140))
@@ -314,11 +295,9 @@ public class ProductsPrime extends AppCompatActivity {
 
         // @@@@@@   On buynow button clicked   @@@@@@
 
-
-
-
-
     }
+
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -328,6 +307,44 @@ public class ProductsPrime extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void addToCart(String sku, Double quantity_ordered){
+        CartItem cartItem = new CartItem(sku,quantity_ordered);
+        List<CartItem> cart = new ArrayList<CartItem>();
+        cart.add(cartItem);
+
+        CartOrder cartOrder = new CartOrder(cart);
+
+        session = new SessionManagement(getApplicationContext());
+        HashMap<String, String> user = session.getUserDetails();
+
+        String token = user.get(SessionManagement.KEY_TOKEN);
+
+        String TokenRequest = "Token "+ token;
+        Call<CartOrder> call = cartApi.addtocart(TokenRequest, cartOrder);
+
+        call.enqueue(new Callback<CartOrder>() {
+            @Override
+            public void onResponse(Call<CartOrder> call, Response<CartOrder> response) {
+                if (response.isSuccessful()) {
+
+                    if (response.body() != null) {
+
+                        Toast.makeText(ProductsPrime.this, "Added to cart", Toast.LENGTH_SHORT).show();
+
+
+                    }
+                } else {
+                    Log.d("fail", "fail");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<CartOrder> call, Throwable t) {
+
+            }
+        });
     }
 
 

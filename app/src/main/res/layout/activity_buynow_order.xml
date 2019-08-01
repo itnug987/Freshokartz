@@ -18,12 +18,12 @@
     <ScrollView
         android:id="@+id/scroll"
         android:layout_width="match_parent"
-        android:layout_marginBottom="5dp"
-        android:layout_height="500dp"
+        android:layout_marginBottom="80dp"
+        android:layout_height="wrap_content"
         android:layout_below="@id/toolbar">
 
-
-        <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        <RelativeLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:app="http://schemas.android.com/apk/res-auto"
             xmlns:tools="http://schemas.android.com/tools"
             android:layout_width="match_parent"
@@ -35,7 +35,9 @@
                 android:id="@+id/recycle_view"
                 android:layout_width="match_parent"
                 android:layout_height="260dp"
-                android:layout_below="@+id/orders"></android.support.v7.widget.RecyclerView>
+                android:layout_below="@+id/orders">
+
+            </android.support.v7.widget.RecyclerView>
 
             <TextView
                 android:id="@+id/orders"
@@ -51,10 +53,8 @@
                 android:textSize="22sp"
                 android:textStyle="bold" />
 
-
             <TextView
                 android:id="@+id/expected"
-
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/recycle_view"
@@ -62,7 +62,6 @@
                 android:padding="5dp"
                 android:textColor="#2C284B"
                 android:textSize="18dp" />
-
 
             <LinearLayout
                 android:id="@+id/lll"
@@ -72,7 +71,6 @@
                 android:layout_marginHorizontal="5dp"
                 android:layout_marginBottom="2dp"
                 android:weightSum="2">
-
 
                 <TextView
                     android:layout_width="match_parent"
@@ -104,18 +102,19 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_marginHorizontal="5dp"
                 android:layout_below="@id/lll"
-                android:background="@drawable/rounded">
+                android:layout_marginHorizontal="5dp"
+                android:layout_marginTop="15dp"
+                android:background="@drawable/rounded"
+                >
 
                 <TextView
                     android:id="@+id/cartbag"
-                    android:layout_marginTop="5dp"
-                    android:background="#22000000"
-                    android:layout_centerHorizontal="true"
                     android:layout_width="390dp"
                     android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="5dp"
+                    android:background="#22000000"
                     android:fontFamily="@font/caudex"
                     android:gravity="center"
                     android:text="Cart Details"
@@ -127,9 +126,9 @@
                     android:id="@+id/totalmrp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_below="@+id/cartbag"
                     android:layout_marginTop="10dp"
                     android:padding="5dp"
-                    android:layout_below="@+id/cartbag"
                     android:text="Total MRP"
                     android:textColor="#FFF"
                     android:textSize="18sp" />
@@ -148,11 +147,12 @@
                 <TextView
                     android:id="@+id/defshipFee"
                     android:layout_width="match_parent"
-                    android:gravity="right"
-                    android:layout_toRightOf="@id/ashipFee"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/defDeliveryFee"
-                    android:layout_marginTop="5dp"
+                    android:layout_below="@id/total_amount"
+                    android:layout_marginLeft="0dp"
+                    android:layout_marginTop="25dp"
+                    android:layout_toRightOf="@id/ashipFee"
+                    android:gravity="right"
                     android:padding="5dp"
                     android:text="Free"
                     android:textColor="#00B0FF"
@@ -163,21 +163,21 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/ashipFee"
-                    android:layout_marginTop="5dp"
+                    android:layout_marginTop="64dp"
                     android:padding="5dp"
                     android:text="Delivery Fee:"
                     android:textColor="#FFF"
                     android:textSize="18sp" />
 
                 <TextView
-                    android:id="@+id/defDeliveryFee"
+                    android:id="@+id/total_amount"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
                     android:layout_below="@+id/cartbag"
+                    android:layout_marginTop="5dp"
                     android:layout_toRightOf="@id/totalmrp"
-                    android:padding="5dp"
                     android:gravity="right"
+                    android:padding="5dp"
                     android:text="Rs 0.0"
                     android:textColor="#FFF"
                     android:textSize="18sp" />
@@ -187,9 +187,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/defshipFee"
-                    android:gravity="right"
-                    android:layout_toRightOf="@id/deliveryFee"
                     android:layout_marginTop="10dp"
+                    android:layout_toRightOf="@id/deliveryFee"
+                    android:gravity="right"
                     android:padding="5dp"
                     android:text="Rs 0.0"
                     android:textColor="#FFF"
@@ -202,51 +202,45 @@
                     android:layout_below="@id/deliveryFee"
                     android:layout_marginTop="5dp"
                     android:padding="5dp"
-                    android:textStyle="bold"
                     android:text="Amount Payable"
                     android:textColor="#FFF"
-                    android:textSize="18sp" />
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/payaba"
-                    android:textStyle="bold"
-
+                    android:id="@+id/total_amount_payable"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/deliveryFee"
-                    android:gravity="right"
-                    android:layout_toRightOf="@id/amount"
                     android:layout_marginTop="5dp"
+                    android:layout_toRightOf="@id/amount"
+                    android:gravity="right"
                     android:padding="5dp"
                     android:text="Rs 0.0"
                     android:textColor="#FFF"
-                    android:textSize="18sp" />
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
 
             </RelativeLayout>
 
         </RelativeLayout>
     </ScrollView>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:gravity="bottom|center_vertical"
-    android:weightSum="1"
-        android:layout_marginBottom="5dp"
-        android:layout_below="@+id/scroll">
+
 
         <Button
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center|center_vertical"
             android:layout_alignParentBottom="true"
-            android:layout_marginHorizontal="5dp"
+            android:layout_marginBottom="10dp"
+            android:id="@+id/place_order"
+            android:layout_weight="1"
             android:background="@drawable/gradient"
             android:fontFamily="@font/gfs_didot"
+            android:gravity="center|center_vertical"
             android:text="Place Order"
             android:textColor="#FFF"
             android:textSize="22dp"
             android:textStyle="bold" />
-    </LinearLayout>
+
 </RelativeLayout>

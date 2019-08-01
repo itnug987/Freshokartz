@@ -31,7 +31,7 @@ public class BpResponseBody {
     private String alternateNumber;
     @SerializedName("GSTIN")
     @Expose
-    private Object GSTIN;
+    private String GSTIN;
     @SerializedName("area")
     @Expose
     private AreaO area;
@@ -47,6 +47,11 @@ public class BpResponseBody {
     @SerializedName("outstanding_balance")
     @Expose
     private String outstanding_balance;
+
+    @SerializedName("is_cart")
+    @Expose
+    private boolean is_cart;
+
 
     public Integer getBusinessPartnerId() {
         return businessPartnerId;
@@ -112,11 +117,11 @@ public class BpResponseBody {
         this.alternateNumber = alternateNumber;
     }
 
-    public Object getGSTIN() {
+    public String getGSTIN() {
         return GSTIN;
     }
 
-    public void setGSTIN(Object GSTIN) {
+    public void setGSTIN(String GSTIN) {
         this.GSTIN = GSTIN;
     }
 
@@ -158,5 +163,13 @@ public class BpResponseBody {
 
     public void setOutstanding_balance(String outstanding_balance) {
         this.outstanding_balance = outstanding_balance;
+    }
+
+    public boolean isIs_cart() {
+        return is_cart;
+    }
+
+    public void setIs_cart(boolean is_cart) {
+        this.is_cart = is_cart;
     }
 }

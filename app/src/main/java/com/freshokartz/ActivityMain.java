@@ -54,6 +54,8 @@ public class ActivityMain extends AppCompatActivity {
 
     static ActivityMain activityMain;
 
+    SessionManagement session;
+
     public static ActivityMain getInstance() {
         return activityMain;
     }
@@ -66,12 +68,14 @@ public class ActivityMain extends AppCompatActivity {
         db = new DatabaseHandler(this);
         sharedPref = new SharedPref(this);
 
+        session = new SessionManagement(getApplicationContext());
+
         initToolbar();
         initDrawerMenu();
         initComponent();
         initFragment();
         prepareAds();
-        swipeProgress(true);
+        swipeProgress(false);
 
         // launch instruction when first launch
         if (sharedPref.isFirstLaunch()) {
@@ -98,6 +102,7 @@ public class ActivityMain extends AppCompatActivity {
                 super.onDrawerOpened(drawerView);
             }
         };
+
         drawer.setDrawerListener(toggle);
         toggle.syncState();
         nav_view.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
@@ -108,7 +113,9 @@ public class ActivityMain extends AppCompatActivity {
                 return true;
             }
         });
+
         nav_view.setItemIconTintList(getResources().getColorStateList(R.color.nav_state_list));
+
     }
 
     private void initFragment() {
@@ -128,7 +135,7 @@ public class ActivityMain extends AppCompatActivity {
     private void initComponent() {
         parent_view = findViewById(R.id.parent_view);
         search_bar = (CardView) findViewById(R.id.search_bar);
-        swipe_refresh = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh_layout);
+       swipe_refresh = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh_layout);
         fab = (FloatingActionButton) findViewById(R.id.fab);
         NestedScrollView nested_content = (NestedScrollView) findViewById(R.id.nested_content);
         nested_content.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
@@ -144,34 +151,24 @@ public class ActivityMain extends AppCompatActivity {
                 }
             }
         });
+
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(getApplicationContext(), ActivityShoppingCart.class);
-                startActivity(i);
+                if (session.isLoggedIn()) {
+                    Intent i = new Intent(getApplicationContext(), Buynow_order.class);
+                    startActivity(i);
+                }
             }
         });
 
         // on swipe list
-        swipe_refresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                refreshFragment();
-            }
-        });
-
-        ((ImageButton) findViewById(R.id.action_search)).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ActivitySearch.navigate(ActivityMain.this);
-            }
-        });
     }
 
     private void refreshFragment() {
         category_load = false;
         news_load = false;
-        swipeProgress(true);
+      //  swipeProgress(false);
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -201,14 +198,24 @@ public class ActivityMain extends AppCompatActivity {
                 i = new Intent(this, LoginAndRegistration.class);
                 startActivity(i);
                 break;
+            case R.id.nav_profile:
+                i = new Intent(this, ActivityProfile.class);
+                startActivity(i);
+                break;
             case R.id.nav_cart:
-                i = new Intent(this, ActivityShoppingCart.class);
+                i = new Intent(this, Buynow_order.class);
                 startActivity(i);
                 break;
             case R.id.nav_wish:
                 i = new Intent(this, ActivityWishlist.class);
                 startActivity(i);
                 break;
+
+            case R.id.nav_current_orders:
+                i = new Intent(this, ActivityCurrentOrders.class);
+                startActivity(i);
+                break;
+
             case R.id.nav_history:
                 i = new Intent(this, ActivityOrderHistory.class);
                 startActivity(i);
@@ -222,6 +229,10 @@ public class ActivityMain extends AppCompatActivity {
                 i = new Intent(this, ActivityNotification.class);
                 startActivity(i);
                 break;
+            case R.id.nav_logout:
+                session.logoutUser();
+                break;
+
             case R.id.nav_setting:
                 i = new Intent(this, ActivitySettings.class);
                 startActivity(i);
@@ -266,6 +277,25 @@ public class ActivityMain extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         updateNavCounter(nav_view);
+
+        if(session.isLoggedIn()){
+            nav_view.getMenu().findItem(R.id.nav_login).setVisible(false);
+            nav_view.getMenu().findItem(R.id.nav_profile).setVisible(true);
+            nav_view.getMenu().findItem(R.id.nav_logout).setVisible(true);
+            nav_view.getMenu().findItem(R.id.nav_cart).setVisible(true);
+            nav_view.getMenu().findItem(R.id.nav_history).setVisible(true);
+            nav_view.getMenu().findItem(R.id.nav_current_orders).setVisible(true);
+        }
+
+        else{
+            nav_view.getMenu().findItem(R.id.nav_login).setVisible(true);
+            nav_view.getMenu().findItem(R.id.nav_profile).setVisible(false);
+            nav_view.getMenu().findItem(R.id.nav_logout).setVisible(false);
+            nav_view.getMenu().findItem(R.id.nav_cart).setVisible(false);
+            nav_view.getMenu().findItem(R.id.nav_history).setVisible(false);
+            nav_view.getMenu().findItem(R.id.nav_current_orders).setVisible(false);
+        }
+
     }
 
     static boolean active = false;
@@ -372,8 +402,6 @@ public class ActivityMain extends AppCompatActivity {
         } else {
             dot_sign.setVisibility(View.GONE);
         }
-
     }
-
 
 }

@@ -23,7 +23,7 @@ public class Result {
     private String productHindiName;
     @SerializedName("product_image")
     @Expose
-    private Object productImage;
+    private String productImage;
     @SerializedName("description")
     @Expose
     private String description;
@@ -104,11 +104,11 @@ public class Result {
         this.productHindiName = productHindiName;
     }
 
-    public Object getProductImage() {
+    public String getProductImage() {
         return productImage;
     }
 
-    public void setProductImage(Object productImage) {
+    public void setProductImage(String productImage) {
         this.productImage = productImage;
     }
 

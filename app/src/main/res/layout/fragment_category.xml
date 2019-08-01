@@ -15,7 +15,7 @@
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Title"
         android:textColor="@color/grey_60" />
 
-    <RelativeLayout
+    <GridLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:minHeight="@dimen/min_height_categories">
@@ -28,6 +28,6 @@
             android:scrollbars="vertical"
             android:scrollingCache="true" />
 
-    </RelativeLayout>
+    </GridLayout>
 
 </LinearLayout>

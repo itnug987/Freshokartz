@@ -97,9 +97,16 @@
                         android:textStyle="bold" />
                 </LinearLayout>
 
+
+
             </LinearLayout>
 
         </LinearLayout>
+
+        <android.support.v7.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/past_order_items"></android.support.v7.widget.RecyclerView>
 
         <View
             android:layout_width="match_parent"

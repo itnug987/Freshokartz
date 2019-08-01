@@ -17,7 +17,7 @@ public class Result {
     private String name;
     @SerializedName("category_image")
     @Expose
-    private Object categoryImage;
+    private String categoryImage;
     @SerializedName("status")
     @Expose
     private Boolean status;
@@ -46,11 +46,11 @@ public class Result {
         this.name = name;
     }
 
-    public Object getCategoryImage() {
+    public String getCategoryImage() {
         return categoryImage;
     }
 
-    public void setCategoryImage(Object categoryImage) {
+    public void setCategoryImage(String categoryImage) {
         this.categoryImage = categoryImage;
     }
 

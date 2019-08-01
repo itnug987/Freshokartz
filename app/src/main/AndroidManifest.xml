@@ -18,7 +18,10 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Buynow_order"></activity>
+        <activity android:name=".ActivityCurrentOrders"></activity>
+        <activity android:name=".ActivityAddAddress" />
+        <activity android:name=".ActivityConfirmOrder" />
+        <activity android:name=".Buynow_order" />
         <activity android:name=".ProductsPrime" />
         <activity android:name=".ProductsShow" /> <!-- List Of Activity Class -->
         <activity android:name=".ActivitySplash">
@@ -72,6 +75,7 @@
 
         <activity android:name=".LoginAndRegistration" />
         <activity android:name=".Registration" />
+        <activity android:name=".ActivityProfile" />
     </application>
 
 </manifest>
