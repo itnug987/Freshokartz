@@ -181,15 +181,16 @@ android:alpha="0.8"
             >
 
             <Button
+                android:id="@+id/cart"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:background="@drawable/button_border"
                 android:fontFamily="@font/gfs_didot"
-                android:text="Buy Now"
-                android:textStyle="bold"
+                android:text="Go to cart"
                 android:textColor="@android:color/white"
-                android:textSize="18dp" />
+                android:textSize="18dp"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/TextView"
@@ -199,10 +200,10 @@ android:alpha="0.8"
                 android:background="@color/streat_line" />
 
             <Button
+                android:id="@+id/addToCart"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
-                android:textStyle="bold"
 
                 android:background="@drawable/button_border"
 
@@ -210,7 +211,8 @@ android:alpha="0.8"
                 android:text="Add to Cart"
                 android:textColor="@android:color/white"
 
-                android:textSize="18dp" />
+                android:textSize="18dp"
+                android:textStyle="bold" />
 
         </LinearLayout>
 

@@ -220,7 +220,8 @@
             android:background="#FFF"
 
             android:paddingTop="10dp"
-            android:weightSum="2">
+            android:weightSum="2"
+            android:orientation="horizontal">
 
             <Button
                 android:id="@+id/addtocat"
@@ -243,10 +244,12 @@
                 android:background="#7BBB27"
                 android:id="@+id/buynow"
                 android:fontFamily="@font/gfs_didot"
-                android:text="Buy Now"
+                android:text="GO to Cart"
                 android:textColor="#FFF"
                 android:textSize="22dp"
                 android:textStyle="bold" />
+
+
         </LinearLayout>
 
         <!--<LinearLayout-->

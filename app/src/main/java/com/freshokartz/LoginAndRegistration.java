@@ -1,6 +1,8 @@
 package com.freshokartz;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -9,6 +11,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -24,11 +30,15 @@ public class LoginAndRegistration extends AppCompatActivity {
     private ImageButton backhome;
     private String token;
 
+    private SharedPreferences mPreferences;
+
     Retrofit.Builder builder = new Retrofit.Builder()
             .baseUrl(LoginApi.DJANGO_SITE)
             .addConverterFactory(GsonConverterFactory.create());
     Retrofit retrofit = builder.build();
     LoginApi loginApi = retrofit.create(LoginApi.class);
+
+    CartApi cartApi = retrofit.create(CartApi.class);
 
     SessionManagement session;
 
@@ -68,6 +78,8 @@ public class LoginAndRegistration extends AppCompatActivity {
                 startActivity(i);
             }
         });
+
+
     }
 
     private void login() {
@@ -91,9 +103,15 @@ public class LoginAndRegistration extends AppCompatActivity {
                         Log.i("sperer", "gyjvhj");
 
                         session.createLoginSession(token);
-                        Intent i = new Intent(LoginAndRegistration.this, ActivityMain.class);
-                        startActivity(i);
-
+                        if(session.isFirstTime()){
+                            create_new_cart();
+                            Intent i = new Intent(LoginAndRegistration.this, ActivityMain.class);
+                            startActivity(i);
+                        }
+                        else {
+                            Intent i = new Intent(LoginAndRegistration.this, ActivityMain.class);
+                            startActivity(i);
+                        }
                     }
                 } else {
                     Log.d("fail", "fail");
@@ -129,6 +147,41 @@ public class LoginAndRegistration extends AppCompatActivity {
             }
         });
     }
+
+    private void create_new_cart(){
+                List<CartItem> cart = new ArrayList<CartItem>();
+                CartOrder cartOrder = new CartOrder(cart);
+
+                session = new SessionManagement(getApplicationContext());
+                HashMap<String, String> user = session.getUserDetails();
+
+                String token = user.get(SessionManagement.KEY_TOKEN);
+
+                String TokenRequest = "Token "+ token;
+                Call<CartOrder> call = cartApi.new_addtocart(TokenRequest, cartOrder);
+
+                call.enqueue(new Callback<CartOrder>() {
+                    @Override
+                    public void onResponse(Call<CartOrder> call, Response<CartOrder> response) {
+                        if (response.isSuccessful()) {
+
+                            if (response.body() != null) {
+
+                                Toast.makeText(LoginAndRegistration.this, "New cart is created", Toast.LENGTH_SHORT).show();
+
+
+                            }
+                        } else {
+                            Log.d("fail", "fail");
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<CartOrder> call, Throwable t) {
+
+                    }
+                });
+            }
 
 }
 

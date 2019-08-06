@@ -17,37 +17,21 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
-import com.freshokartz.Cart.cart_items;
-import com.freshokartz.Product.Result;
+import com.freshokartz.Cart.Result;
+import com.freshokartz.model.Order;
 import com.github.aakira.expandablelayout.ExpandableRelativeLayout;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
+public class SalesOrderAdapter extends RecyclerView.Adapter<SalesOrderAdapter.ProAdapterViewHolder> {
 
-public class ProAdapter extends RecyclerView.Adapter<ProAdapter.ProAdapterViewHolder> {
-
-    String[] data;
     private Context context;
-    private List<Result> items;
+    private List<Order_Items> items;
 
-    Retrofit.Builder builder = new Retrofit.Builder()
-            .baseUrl(CartApi.DJANGO_SITE)
-            .addConverterFactory(GsonConverterFactory.create());
-    Retrofit retrofit = builder.build();
-    CartApi cartApi = retrofit.create(CartApi.class);
-
-    public ProAdapter(Context context, List<Result> items) {
+    public SalesOrderAdapter(Context context, List<Order_Items> items) {
         this.context = context;
         this.items = items;
     }
@@ -56,51 +40,25 @@ public class ProAdapter extends RecyclerView.Adapter<ProAdapter.ProAdapterViewHo
     @Override
     public ProAdapterViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         LayoutInflater inflater = LayoutInflater.from(context);
-        View view = inflater.inflate(R.layout.row_layout, viewGroup, false);
+        View view = inflater.inflate(R.layout.order_item, viewGroup, false);
         return new ProAdapterViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final ProAdapterViewHolder proAdapterViewHolder, final int i) {
-         final Result result = items.get(i);
-        proAdapterViewHolder.textView.setText(result.getProductName());
-        proAdapterViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.i("incre","sdssd");
-                String skId = items.get(i).getSku();
-                Intent gintent = new Intent(context, ProductsPrime.class);
-                gintent.putExtra("skId",skId);
-                context.startActivity(gintent);
-            }
-        });
-        proAdapterViewHolder.price.setText(String.valueOf("Rs. " + result.getPrice()));
-        String url = "http://10.0.2.2:8000" + (String) result.getProductImage();
-        Glide.with(context)
+    public void onBindViewHolder(@NonNull ProAdapterViewHolder proAdapterViewHolder, final int i) {
+        Order_Items result = items.get(i);
+
+            proAdapterViewHolder.textView.setText(result.getSku());
+            proAdapterViewHolder.price.setText(String.valueOf("Rs. " + result.getPrice()));
+
+       // proAdapterViewHolder.incre.setText(order_items.get(i).getQuantity_ordered());
+        //String url = "http://13.127.236.125/" + (String) result.getProductImage();
+       /* Glide.with(context)
                 .load(url)
                 //.apply(new RequestOptions().override(140, 140))
                 .into(proAdapterViewHolder.imageView);
         Log.i("pred","csdfsf");
-
-        proAdapterViewHolder.cart.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(context, Buynow_order.class);
-                context.startActivity(i);
-            }
-        });
-
-        proAdapterViewHolder.addToCart.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                get_cart_id(result.getSku(), Double.parseDouble(proAdapterViewHolder.incre.getText().toString()));
-            }
-        });
-
-
-
-
+*/
     }
 
     @Override
@@ -118,37 +76,15 @@ public class ProAdapter extends RecyclerView.Adapter<ProAdapter.ProAdapterViewHo
         EditText incre;
         Button buyNow;
 
-        Button cart, addToCart;
-
         Spinner spinner;
 
         public ProAdapterViewHolder(@NonNull View itemView) {
             super(itemView);
 
             relativeLayout = itemView.findViewById(R.id.out);
-            buyNow = itemView.findViewById(R.id.buynow);
-            dropd = itemView.findViewById(R.id.dropd);
-            buyNow.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (!relativeLayout.isExpanded()) {
-                        dropd.setImageResource(R.drawable.upmain);
-                        relativeLayout.expand();
-                    } else if (relativeLayout.isExpanded()) {
-                        dropd.setImageResource(R.drawable.maindown);
-                        relativeLayout.collapse();
-                    }
 
-
-                }
-            });
             textView = itemView.findViewById(R.id.text);
             incre = itemView.findViewById(R.id.incre);
-
-            cart = itemView.findViewById(R.id.cart);
-            addToCart = itemView.findViewById(R.id.addToCart);
-
-
 
             incre.addTextChangedListener(new TextWatcher() {
                 @Override
@@ -266,75 +202,6 @@ public class ProAdapter extends RecyclerView.Adapter<ProAdapter.ProAdapterViewHo
 //                }
 //            });
         }
-
-    }
-
-    private void addToCart(int cart_id, String sku, Double quantity_ordered){
-        CartItem cartItem = new CartItem(sku,quantity_ordered);
-        List<CartItem> cart = new ArrayList<CartItem>();
-        cart.add(cartItem);
-
-        CartOrder cartOrder = new CartOrder(cart);
-
-      SessionManagement  session = new SessionManagement(context);
-        HashMap<String, String> user = session.getUserDetails();
-
-        String token = user.get(SessionManagement.KEY_TOKEN);
-
-        String TokenRequest = "Token "+ token;
-
-
-
-        Call<CartOrder> call = cartApi.addtocart(cart_id, TokenRequest, cartOrder);
-
-        call.enqueue(new Callback<CartOrder>() {
-            @Override
-            public void onResponse(Call<CartOrder> call, Response<CartOrder> response) {
-                if (response.isSuccessful()) {
-
-                    if (response.body() != null) {
-
-                        Toast.makeText(context, "Added to cart", Toast.LENGTH_SHORT).show();
-
-
-                    }
-                } else {
-                    Log.d("fail", "fail");
-                }
-            }
-
-            @Override
-            public void onFailure(Call<CartOrder> call, Throwable t) {
-
-            }
-        });
-    }
-
-    private void get_cart_id(final String sku, final Double quantity_ordered ){
-
-        SessionManagement  session = new SessionManagement(context);
-        HashMap<String, String> user = session.getUserDetails();
-
-        String token = user.get(SessionManagement.KEY_TOKEN);
-
-        String TokenRequest = "Token "+ token;
-        Call<cart_items> result = cartApi.getDetail(TokenRequest);
-
-        result.enqueue(new Callback<cart_items>() {
-            @Override
-            public void onResponse(Call<cart_items> call, Response<cart_items> response) {
-                cart_items items = response.body();
-
-                int cart_id = items.getResults().get(0).getCart_id();
-
-                addToCart(cart_id, sku,quantity_ordered);
-            }
-
-            @Override
-            public void onFailure(Call<cart_items> call, Throwable t) {
-
-            }
-        });
 
     }
 

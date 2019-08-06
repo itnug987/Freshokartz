@@ -21,6 +21,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.freshokartz.Cart.cart_items;
 import com.freshokartz.Product.OrderInfo;
 import com.freshokartz.Product.ProductList;
 import com.freshokartz.Product.Result;
@@ -55,6 +56,8 @@ public class ProductsPrime extends AppCompatActivity {
     int k;
     String value = "";
     double finalValue;
+
+
 
     SessionManagement session;
 
@@ -136,6 +139,8 @@ public class ProductsPrime extends AppCompatActivity {
         });
         getProductsDescription(id);
 
+
+
     }
 
     private void getProductsDescription(String id) {
@@ -216,12 +221,30 @@ public class ProductsPrime extends AppCompatActivity {
 
                         if (addtoCart.getText().equals("Add to Cart")) {
                             double gtr = Double.parseDouble(incre.getText().toString());
-                            addToCart(productList.getResults().get(0).getSku(), gtr);
+
+                        //    Intent intent1 = getIntent();
+                         //   int cart_id = intent1.getIntExtra("cart_id", 40);
+
+                            session = new SessionManagement(getApplicationContext());
+                            HashMap<String, String> user = session.getUserDetails();
+
+                            String token = user.get(SessionManagement.KEY_TOKEN);
+
+                            get_cart_id(token, productList.getResults().get(0).getSku(), gtr);
 
                             addtoCart.setBackgroundDrawable(getResources().getDrawable(R.drawable.gradient));
-                            addtoCart.setText("Added to Cart");
+                            addtoCart.setText("Update the Cart");
                         }
-                        else if(addtoCart.getText().equals("Added to Cart")){
+                        else if(addtoCart.getText().equals("Update the Cart")){
+
+                            session = new SessionManagement(getApplicationContext());
+                            HashMap<String, String> user = session.getUserDetails();
+
+                            String token = user.get(SessionManagement.KEY_TOKEN);
+
+                            get_cart_id(token, productList.getResults().get(0).getSku(), 0.01);
+
+
                             addtoCart.setBackgroundColor(Color.parseColor("#30978E"));
                             addtoCart.setText("Add to Cart");
 
@@ -309,7 +332,7 @@ public class ProductsPrime extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private void addToCart(String sku, Double quantity_ordered){
+    private void addToCart(int cart_id, String sku, Double quantity_ordered){
         CartItem cartItem = new CartItem(sku,quantity_ordered);
         List<CartItem> cart = new ArrayList<CartItem>();
         cart.add(cartItem);
@@ -322,7 +345,10 @@ public class ProductsPrime extends AppCompatActivity {
         String token = user.get(SessionManagement.KEY_TOKEN);
 
         String TokenRequest = "Token "+ token;
-        Call<CartOrder> call = cartApi.addtocart(TokenRequest, cartOrder);
+
+
+
+        Call<CartOrder> call = cartApi.addtocart(cart_id, TokenRequest, cartOrder);
 
         call.enqueue(new Callback<CartOrder>() {
             @Override
@@ -346,6 +372,99 @@ public class ProductsPrime extends AppCompatActivity {
             }
         });
     }
+
+    private void get_cart_id(String token, final String sku, final Double quantity_ordered ){
+
+        String TokenRequest = "Token "+ token;
+        Call<cart_items> result = cartApi.getDetail(TokenRequest);
+
+        result.enqueue(new Callback<cart_items>() {
+            @Override
+            public void onResponse(Call<cart_items> call, Response<cart_items> response) {
+                cart_items items = response.body();
+
+                int cart_id = items.getResults().get(0).getCart_id();
+
+                addToCart(cart_id, sku,quantity_ordered);
+            }
+
+            @Override
+            public void onFailure(Call<cart_items> call, Throwable t) {
+
+            }
+        });
+
+    }
+
+    public void delete_cart_item(final String sku, final Double quantity_ordered ){
+
+        session = new SessionManagement(getApplicationContext());
+        HashMap<String, String> user = session.getUserDetails();
+
+        String token = user.get(SessionManagement.KEY_TOKEN);
+
+        String TokenRequest = "Token "+ token;
+        Call<cart_items> result = cartApi.getDetail(TokenRequest);
+
+        result.enqueue(new Callback<cart_items>() {
+            @Override
+            public void onResponse(Call<cart_items> call, Response<cart_items> response) {
+                cart_items items = response.body();
+
+                int cart_id = items.getResults().get(0).getCart_id();
+
+                delete(cart_id, sku,quantity_ordered);
+            }
+
+            @Override
+            public void onFailure(Call<cart_items> call, Throwable t) {
+
+            }
+        });
+
+    }
+
+    public void delete(int cart_id, String sku, Double quantity_ordered){
+        CartItem cartItem = new CartItem(sku,quantity_ordered);
+        List<CartItem> cart = new ArrayList<CartItem>();
+        cart.add(cartItem);
+
+        CartOrder cartOrder = new CartOrder(cart);
+
+        session = new SessionManagement(getApplicationContext());
+        HashMap<String, String> user = session.getUserDetails();
+
+        String token = user.get(SessionManagement.KEY_TOKEN);
+
+        String TokenRequest = "Token "+ token;
+
+
+
+        Call<CartOrder> call = cartApi.addtocart(cart_id, TokenRequest, cartOrder);
+
+        call.enqueue(new Callback<CartOrder>() {
+            @Override
+            public void onResponse(Call<CartOrder> call, Response<CartOrder> response) {
+                if (response.isSuccessful()) {
+
+                    if (response.body() != null) {
+
+                        Toast.makeText(ProductsPrime.this, "Deleted from cart", Toast.LENGTH_SHORT).show();
+
+
+                    }
+                } else {
+                    Log.d("fail", "fail");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<CartOrder> call, Throwable t) {
+
+            }
+        });
+    }
+
 
 
 }

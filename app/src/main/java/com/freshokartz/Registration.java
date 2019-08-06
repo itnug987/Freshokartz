@@ -1,6 +1,7 @@
 package com.freshokartz;
 
 import android.content.Intent;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -186,13 +187,9 @@ public class Registration extends AppCompatActivity {
 
                     if (response.body() != null) {
 
-
-
                         Toast.makeText(Registration.this, "Registration success", Toast.LENGTH_SHORT).show();
                         Intent i = new Intent(Registration.this, ActivityMain.class);
                         startActivity(i);
-
-
 
                     }
                 } else {
@@ -206,6 +203,8 @@ public class Registration extends AppCompatActivity {
             }
         });
     }
+
+
 
 
 

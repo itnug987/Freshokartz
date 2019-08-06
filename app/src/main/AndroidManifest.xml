@@ -20,7 +20,6 @@
         android:theme="@style/AppTheme">
         <activity android:name=".ActivityCurrentOrders"></activity>
         <activity android:name=".ActivityAddAddress" />
-        <activity android:name=".ActivityConfirmOrder" />
         <activity android:name=".Buynow_order" />
         <activity android:name=".ProductsPrime" />
         <activity android:name=".ProductsShow" /> <!-- List Of Activity Class -->

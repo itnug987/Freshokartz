@@ -1,6 +1,8 @@
 package com.freshokartz;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -38,6 +40,8 @@ public class Buynow_order extends AppCompatActivity {
 RecyclerView recyclerView;
     Button place_order;
     TextView amount, total_amount;
+    AlertDialog.Builder alertBuilder;
+    SessionManagement session;
 
 
     Retrofit.Builder builder = new Retrofit.Builder()
@@ -116,7 +120,7 @@ RecyclerView recyclerView;
                     List<Result> main = items.getResults();
                     amount.setText(String.valueOf(items.getResults().get(0).getOrder_amount()));
                     total_amount.setText(String.valueOf(items.getResults().get(0).getOrder_amount()));
-                    recyclerView.setAdapter(new SalesOrderAdapter(Buynow_order.this, items.getResults().get(0).getOrder_items()));
+                    recyclerView.setAdapter(new CartItemsAdapter(Buynow_order.this, items.getResults().get(0).getOrder_items()));
                 }
                 }
 
@@ -149,8 +153,26 @@ RecyclerView recyclerView;
                     if (response.body() != null) {
 
                         Toast.makeText(Buynow_order.this, "Order is placed", Toast.LENGTH_SHORT).show();
-                        Intent i = new Intent(Buynow_order.this, ActivityMain.class);
-                        startActivity(i);
+
+                        alertBuilder = new AlertDialog.Builder(Buynow_order.this);
+
+                        alertBuilder.setMessage(" Your order is place. Keep Shopping. ")
+                                    .setCancelable(false)
+                                    .setPositiveButton("Return to Shopping", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            create_new_cart();
+
+                                            Intent i = new Intent(Buynow_order.this, ActivityMain.class);
+                                            startActivity(i);
+                                        }
+                                    });
+
+                        AlertDialog alertDialog = alertBuilder.create();
+                        alertDialog.setTitle("Order placed");
+                        alertDialog.show();
+                        //Intent i = new Intent(Buynow_order.this, ActivityMain.class);
+                        //startActivity(i);
 
                     }
                 } else {
@@ -164,6 +186,42 @@ RecyclerView recyclerView;
             }
         });
     }
+
+    private void create_new_cart(){
+        List<CartItem> cart = new ArrayList<CartItem>();
+        CartOrder cartOrder = new CartOrder(cart);
+
+        session = new SessionManagement(getApplicationContext());
+        HashMap<String, String> user = session.getUserDetails();
+
+        String token = user.get(SessionManagement.KEY_TOKEN);
+
+        String TokenRequest = "Token "+ token;
+        Call<CartOrder> call = cartApi.new_addtocart(TokenRequest, cartOrder);
+
+        call.enqueue(new Callback<CartOrder>() {
+            @Override
+            public void onResponse(Call<CartOrder> call, Response<CartOrder> response) {
+                if (response.isSuccessful()) {
+
+                    if (response.body() != null) {
+
+                        Toast.makeText(Buynow_order.this, "New cart is created", Toast.LENGTH_SHORT).show();
+
+
+                    }
+                } else {
+                    Log.d("fail", "fail");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<CartOrder> call, Throwable t) {
+
+            }
+        });
+    }
+
 
 
 }
