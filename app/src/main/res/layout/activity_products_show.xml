@@ -5,18 +5,29 @@
 
     android:layout_width="match_parent"
     android:background="@drawable/finagradient"
-    android:gravity="center_horizontal"    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:layout_height="match_parent"
     tools:context=".ProductsShow">
 
     <android.support.v7.widget.Toolbar
-    android:id="@+id/toolbar"
-    android:layout_width="match_parent"
-    android:layout_height="?attr/actionBarSize"
-    android:background="@color/colorPrimary"
-    android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-    app:contentInsetStartWithNavigation="0dp"
-    app:paddingEnd="@dimen/spacing_medium"
-    app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/colorPrimary"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:contentInsetStartWithNavigation="0dp"
+        app:paddingEnd="@dimen/spacing_medium"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/transparent"
+            android:src="@drawable/ic_cart"
+            android:layout_gravity="end"
+            android:layout_marginRight="10dp"
+            android:id="@+id/cartbag"/>
+    </android.support.v7.widget.Toolbar>
 
 
 

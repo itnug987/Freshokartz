@@ -166,8 +166,8 @@
 
     <!-- Activity Setting : xml/setting_preference.xml -->
     <string name="app_version">Version</string>
-    <string name="developer_email">sandeep@crazzleplus.com</string>
-    <string name="copyright">Copyright © 2019 FreshoKartz. \nAll right reserved \n Developed By CrazzlePlus</string>
+    <string name="developer_email">info@freshokartz.coom</string>
+    <string name="copyright">Copyright © 2019 FreshoKartz. \nAll right reserved \n</string>
 
     <string name="pref_group_notif">NOTIFICATIONS</string>
     <string name="pref_group_others">OTHERS</string>
@@ -182,10 +182,74 @@
     <string name="grant_permission_storage">Grant storage permission to enable</string>
 
     <string name="content_term">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed dolor risus, aliquet a erat quis, viverra molestie orci. Suspendisse vehicula porta libero. Nam tincidunt nulla ipsum, vel iaculis risus scelerisque sed. Phasellus venenatis, enim vel placerat blandit, leo eros bibendum erat, at auctor mauris diam ac risus. Aenean sit amet congue neque, sit amet condimentum elit. Fusce lacinia massa vel nisl scelerisque, in scelerisque dolor elementum. Vivamus leo enim, congue dictum congue vitae, porttitor id purus. Sed eu ultricies erat. Morbi hendrerit, mi ac volutpat commodo, magna turpis pretium nibh, at fringilla eros lorem quis tellus. Praesent porttitor purus nibh, ac vestibulum massa fringilla vel. Pellentesque dapibus nulla quis luctus dictum. In scelerisque ut ex sed facilisis. Nunc eu finibus nulla, ut hendrerit sem. Suspendisse accumsan risus vel diam fringilla iaculis.
-        \n\nQuisque facilisis finibus aliquam. Sed mattis, dui fringilla ornare finibus, orci odio blandit risus, ut maximus dui odio non leo. Donec laoreet lacus nisi, a mollis velit suscipit ac. Quisque faucibus ut nisl in congue. Nam sagittis consectetur tempus. Suspendisse eget posuere dui. Donec ultricies velit ex, vel cursus odio sollicitudin in. Nullam faucibus auctor ligula, eu rhoncus dui facilisis a. Curabitur vel feugiat est. Quisque congue at enim eleifend ultrices. Proin dapibus risus lorem, nec condimentum nunc consequat vitae. Quisque sapien lorem, vestibulum vitae justo eget, fringilla eleifend nisi.
-        \n\nMauris ultricies augue sit amet est sollicitudin laoreet. Fusce ut congue felis. Fusce dictum tristique elit nec iaculis. Mauris sodales tempus fringilla. Fusce nec nunc tempus, tempor sapien sit amet, ultricies erat. Mauris ultrices ac lorem ultrices facilisis. Nam pharetra, nisi a imperdiet interdum, nunc justo ultricies nisl, a laoreet massa dui vel enim. Pellentesque et magna ac tellus ullamcorper malesuada a ac nisl. Curabitur id est et neque convallis accumsan. Aliquam eleifend varius massa. Curabitur eu finibus tortor.
-        \n\nVivamus aliquam nisl rutrum orci volutpat porta in ornare est. Quisque ligula ipsum, vulputate id aliquam vitae, semper vitae orci. Nam non pulvinar ligula, eget tincidunt ante. Quisque sapien massa, varius tempus pretium id, vehicula at magna. Ut ut ultrices augue. Nam nec ullamcorper tellus, at finibus lectus. Fusce vel iaculis mauris, id porta nulla. Aenean ac mollis sapien. Morbi imperdiet augue tempus nulla luctus, sit amet feugiat purus elementum.
+    This privacy policy has been compiled to better serve those who are concerned with how their ‘Personally Identifiable Information’ (PII) is being used online. Please read our privacy policy carefully to get a clear understanding of how we collect, use, protect or otherwise handle your Personally Identifiable Information in accordance with our application.
+\n
+\n
+What personal information do we collect from the people that visit our app?\n
+When ordering or registering on our application, as appropriate, you may be asked to enter your name, email address, mailing address, phone number or other details to help you with your experience. We also ask for internet permission; external storage read and write permission.
+\n
+\n
+When do we collect information?\n
+We collect information from you when you register on our application, place an order, subscribe to a newsletter or enter information on our application. We may offer email, app notifications, short message service (sms), multimedia message service (mms) or other forms of communication to share information with you about certain promotions or features the application may choose to offer or about our affiliates, subsidiaries, business partners, advertisers and sponsors. You may receive such communication when you have registered as a user.
+\n
+We ask for internet permission, external storage read and write permission at the time of first time loading of the application.
+
+\n
+\n
+How do we use your information?\n
+We may use the information we collect from you when you register, make a purchase, sign up for our newsletter, respond to a survey or marketing communication, surf the application, or use certain other application features in the following ways:\n
+• To personalize your experience and to allow us to deliver the type of content and product offerings in which you are most interested.\n
+• To improve our application in order to better serve you.\n
+• To allow us to better service you in responding to your customer service requests.\n
+• To administer a contest, promotion, survey or other application feature.\n
+• To quickly process your transactions.\n
+• To ask for ratings and reviews of services or products\n
+Legal proceedings: In the event we are required to respond to subpoenas, court orders or other legal process, your Personal Information may be disclosed pursuant to such subpoena, court order or legal process, which may be without notice to you.\n
+We use the internet permission to access our backend servers. We use the external storage read and write permission for the purpose of storing the images of the products in the memory for faster accessing in the applicaton.
+\n
+\n
+How do we protect your information?\n
+We do not use vulnerability scanning and/or scanning to PCI standards.\n
+We use regular Malware Scanning.\n
+We do not use an SSL certificate\n
+• We only provide articles and information. We never ask for personal or private information like names, email addresses, or credit card numbers.
+\n
+\n
+Do we use ‘cookies’?\n
+We do not use cookies for tracking purposes\n
+You can choose to have your computer warn you each time a cookie is being sent, or you can choose to turn off all cookies. You do this through your browser settings. Since browser is a little different, look at your browser’s Help Menu to learn the correct way to modify your cookies.\n
+If you turn cookies off, Some of the features that make your application experience more efficient may not function properly.that make your application experience more efficient and may not function properly.
+\n
+\n
+Third-party disclosure\n
+We do not sell, trade, or otherwise transfer to outside parties your Personally Identifiable Information.\n
+\n
+Third-party links
+\n
+We do not include or offer third-party products or services on our application.\n
+\n
+Security
+\n
+We strive to ensure the security, integrity and privacy of your Personal Information and to protect your Personal Information against unauthorized access or unauthorized alteration, disclosure or destruction.\n
+We are not responsible for any breach of security or for any actions of any Third Parties that receive your Personal Information.\n
+Notwithstanding anything contained in this Privacy Policy or elsewhere, we shall not be held responsible for any loss, damage or misuse of your Personal Information, if such loss, damage or misuse.\n
+Freshokartz shall address your discrepancies and grievances with respect to processing of information in a time bound manner. For this purpose, Freshokartz has designated support team which will address your grievances expeditiously but in any event within one month from the date of receipt of grievance.\n
+
+Changes in Privacy Policy\n
+We reserve the right to modify this privacy policy at any time, so please review it frequently. Changes and clarifications will take effect immediately upon their posting on the application. If we make material changes to this policy, we will notify you here that it has been updated, so that you are aware of what information we collect, how we use it, and under what circumstances, if any, we use and/or disclose it.\n
+If our store is acquired or merged with another company, your information may be transferred to the new owners so that we may continue to sell products to you.\n
+\n
+QUESTIONS AND CONTACT INFORMATION
+\n
+If there are any questions regarding this privacy policy, you may contact us using the information below.
+\nFreshokartz Agri products Pvt Ltd
+\n3rd floor Bhamashah technoHub,
+\nJhalana Doongri, Jaipur,
+\nRajasthan,– 302017
+\ninfo@freshokartz.com
+
+
+
     </string>
     <string name="version_unknown">Unknown</string>
 

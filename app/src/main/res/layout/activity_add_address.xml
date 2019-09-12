@@ -1,18 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<ScrollView xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ActivityAddAddress">
+    android:layout_width="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/parent_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="vertical"
+        >
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appbar_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+       android:layout_marginBottom="10dp"
+        >
 
         <include layout="@layout/toolbar" />
 
@@ -22,14 +29,9 @@
         android:id="@+id/imageView5"
         android:layout_width="163dp"
         android:layout_height="47dp"
-        android:layout_marginStart="108dp"
-        android:layout_marginLeft="108dp"
-        android:layout_marginTop="25dp"
-        android:layout_marginEnd="108dp"
-        android:layout_marginRight="108dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/appbar_layout"
+        android:layout_marginTop="70dp"
+        android:layout_centerHorizontal="true"
+
         app:srcCompat="@drawable/logo_main" />
 
 
@@ -45,10 +47,9 @@
         android:ems="10"
         android:hint="Name"
         android:inputType="textPersonName"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.483"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView5" />
+        android:layout_below="@+id/imageView5"
+        android:layout_centerHorizontal="true"
+     />
 
     <EditText
         android:id="@+id/nick_name"
@@ -61,11 +62,10 @@
         android:layout_marginRight="126dp"
         android:ems="10"
         android:hint="Nick Name"
+        android:layout_centerHorizontal="true"
         android:inputType="textPersonName"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.318"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/name" />
+        android:layout_below="@+id/name"
+      />
 
     <EditText
         android:id="@+id/house_flat_shop_number"
@@ -76,13 +76,12 @@
         android:layout_marginTop="10dp"
         android:layout_marginEnd="96dp"
         android:layout_marginRight="96dp"
+        android:layout_centerHorizontal="true"
         android:ems="10"
         android:hint="House/flat/shop number "
         android:inputType="textPersonName"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/nick_name" />
+        android:layout_below="@+id/nick_name"
+    />
 
     <Spinner
         android:id="@+id/spinArea"
@@ -93,9 +92,9 @@
         android:layout_marginTop="10dp"
         android:layout_marginEnd="161dp"
         android:layout_marginRight="161dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/detail_address" />
+        android:layout_below="@+id/house_flat_shop_number"
+        android:layout_centerHorizontal="true"
+        />
 
     <Spinner
         android:id="@+id/spinCity"
@@ -106,9 +105,9 @@
         android:layout_marginTop="10dp"
         android:layout_marginEnd="163dp"
         android:layout_marginRight="163dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spinArea" />
+        android:layout_below="@+id/spinArea"
+        android:layout_centerHorizontal="true"
+        />
 
     <Spinner
         android:id="@+id/spinState"
@@ -119,9 +118,9 @@
         android:layout_marginTop="10dp"
         android:layout_marginEnd="166dp"
         android:layout_marginRight="166dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spinCity" />
+        android:layout_below="@id/spinCity"
+        android:layout_centerHorizontal="true"
+      />
 
     <Spinner
         android:id="@+id/spinCountry"
@@ -132,9 +131,9 @@
         android:layout_marginTop="10dp"
         android:layout_marginEnd="166dp"
         android:layout_marginRight="166dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spinState" />
+        android:layout_below="@+id/spinState"
+        android:layout_centerHorizontal="true"
+        />
 
     <EditText
         android:id="@+id/pincode"
@@ -148,9 +147,9 @@
         android:ems="10"
         android:hint="Pin Code"
         android:inputType="textPersonName"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spinCountry" />
+        android:layout_below="@+id/spinCountry"
+        android:layout_centerHorizontal="true"
+         />
 
     <EditText
         android:id="@+id/detail_address"
@@ -164,9 +163,9 @@
         android:ems="10"
         android:hint="Detail Address"
         android:inputType="textPersonName"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/house_flat_shop_number" />
+        android:layout_below="@+id/pincode"
+        android:layout_centerHorizontal="true"
+       />
 
     <EditText
         android:id="@+id/contact_number"
@@ -180,9 +179,9 @@
         android:ems="10"
         android:hint="Contact No."
         android:inputType="textPersonName"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/pincode" />
+        android:layout_below="@+id/detail_address"
+        android:layout_centerHorizontal="true"
+  />
 
     <Button
         android:id="@+id/add_address"
@@ -193,18 +192,17 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="143dp"
         android:layout_marginRight="143dp"
-        android:layout_marginBottom="2dp"
+
 
         android:background="@color/colorPrimary"
         android:padding="2sp"
         android:text="Add address"
         android:textColor="@android:color/background_light"
         android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/contact_number" />
+        android:layout_below="@+id/contact_number"
+        android:layout_centerHorizontal="true"
+        />
 
 
-
-</android.support.constraint.ConstraintLayout>
+</RelativeLayout>
+</ScrollView>
